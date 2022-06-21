@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Tally Sheets</title>
+  <link href="Content/bootstrap.css" rel="stylesheet" />
+ 
+  <script src="Scripts/jquery-1.11.0.min.js"></script>
+  <script src="Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <h2>Digital Tally Sheet</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        
+        <table id="productTable" 
+               class="table table-bordered table-condensed table-striped">
+          <thead>
+            <tr>
+              <th>Edit</th>
+              <th>Bet Numbers</th>
+              <th>Straight</th>
+              <th>Rumbled</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tfoot style="visibility:hidden" id="calcfoot">
+            <tr>
+            <th colspan="2" style="text-align: right;">Sum</th>
+              <th id="sum1"></th>
+              <th id="sum2"></th>
+              <th>&nbsp;</th>
+            </tr>
+          </tfoot>
+        </table>
+      <div id="calcData" style="display: none;">
+            <div class="row">
+                <div class="form-group col-xs-3">
+                    <label for="rumbled">
+                    Subtotal
+                    </label>
+                    <input type="text" class="form-control" style="width: 350px;" id="subtotal" name="subtotal" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-1">
+                    <input type="number" class="form-control" placeholder="Enter Percent Deduction" value="" style="width: 350px;" id="percent" name="percent" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-3">
+                    <label for="rumbled">
+                        Total
+                        </label>
+                    <input type="text" class="form-control" style="width: 350px;" id="total" name="total" readonly />
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            Tally Sheet Form
+          </div>
+          <form action="sendDigital.php" method="post">
+          <div class="panel-body">
+            <div class="form-group">
+              <label for="betNumber">
+                Bet Numbers
+              </label>
+              <input type="text"
+                     class="form-control"
+                     value=""
+                     id="betNumber"
+                     name="betNumber" />
+            </div>
+            <div class="form-group">
+              <label for="straight">
+                Straight
+              </label>
+              <input type="text"
+                     class="form-control"
+                     value=""
+                     id="straight" />
+            </div>
+            <div class="form-group">
+              <label for="rumbled">
+                Rumbled
+              </label>
+              <input type="text"
+                     class="form-control"
+                     value=""
+                     id="rumbled" />
+            </div>
+          </div>
+          <div class="panel-footer">
+            <div class="row">
+              <div class="col-xs-12">
+                <button type="button" id="updateButton"
+                        class="btn btn-primary"
+                        onclick="productUpdate();">
+                  Add
+                </button>
+              </div>
+              
+       
+            </div>
+            
+          </div>
+          
+        </div>
+        <div class="form-group">
+          <label for="rumbled">
+            Manager ID Code
+          </label>
+          <input type="text"
+                 class="form-control"
+                 value=""
+                 id="man_code" />
+        <input type="hidden" name="betList[]" id="betList">
+        </div>
+        <button type="submit" id="digiBtn"
+                        class="btn btn-primary"
+                        name="digiBtn">
+                  Upload
+                </button>
+              </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Next id for adding a new Product
+    var nextId = 1;
+    var straightsum = 0;
+    var rumbledsum = 0;
+    var subtotalsum = 0;
+    var dataRumbled = [];
+    var dataStraight = [];
+    
+    // ID of Product currently editing
+    var activeId = 0;
+    var betArray =[];
+    function productDisplay(ctl) {
+      var row = $(ctl).parents("tr");
+      var cols = row.children("td");
+
+      activeId = $($(cols[0]).children("button")[0]).data("id");
+      $("#betNumber").val($(cols[1]).text());
+      $("#straight").val($(cols[2]).text());
+      $("#rumbled").val($(cols[3]).text());
+
+      // Change Update Button Text
+      $("#updateButton").text("Update");
+    }
+
+    function productUpdate() {
+        var x = document.getElementById("calcfoot");
+        x.style.visibility = "visible";
+      if ($("#updateButton").text() == "Update") {
+        productUpdateInTable(activeId);
+      }
+      else {
+        productAddToTable();
+      }
+        
+
+      var betnum = document.getElementById("betNumber");
+      
+      
+      var betList = document.getElementById("betList");
+      betArray.push(betnum.value);
+      betList.value = betArray;
+      
+      // Clear form fields
+      
+      formClear();
+
+      // Focus to product name field
+      $("#betNumber").focus();
+    }
+
+    // Add product to <table>
+    function productAddToTable() {
+      // First check if a <tbody> tag exists, add one if not
+      if ($("#productTable tbody").length == 0) {
+        $("#productTable").append("<tbody></tbody>");
+      }
+
+      // Append product to table
+      $("#productTable tbody").append(
+        productBuildTableRow(nextId));
+
+      // Increment next ID to use
+      nextId += 1;
+    }
+
+    // Update product in <table>
+    function productUpdateInTable(id) {
+      // Find Product in <table>
+      var row = $("#productTable button[data-id='" + id + "']")
+                .parents("tr")[0];
+
+      // Add changed product to table
+      $(row).after(productBuildTableRow(id));
+      // Remove original product
+      $(row).remove();
+
+      // Clear form fields
+      formClear();
+
+      // Change Update Button Text
+      $("#updateButton").text("Add");
+    }
+
+    // Build a <table> row of Product data
+    function productBuildTableRow(id) {
+    
+      var ret =
+      "<tr>" +
+        "<td>" +
+          "<button type='button' " +
+                  "onclick='productDisplay(this);' " +
+                  "class='btn btn-default' " +
+                  "data-id='" + id + "'>" +
+                  "<span class='glyphicon glyphicon-edit' />" +
+          "</button>" +
+        "</td>" +
+        "<td>" + $("#betNumber").val() + "</td>" +
+        "<td>" + $("#straight").val() + "</td>" +
+        "<td>" + $("#rumbled").val() + "</td>" +
+        "<td>" +
+          "<button type='button' " +
+                  "onclick='productDelete(this," + id + ");' " +
+                  "class='btn btn-default' " +
+                  "data-id='" + id + "'>" +
+                  "<span class='glyphicon glyphicon-remove' />" +
+          "</button>" +
+        "</td>" +
+      "</tr>"
+      var betR = $("#rumbled").val();
+      var betS = $("#straight").val()
+      
+      console.log("ID: " + id);
+      dataRumbled.push(betR);
+      dataStraight.push(betS);
+      console.log("dataRumbled: " + dataRumbled);  
+      console.log("dataStraight: " + dataStraight);     
+      var getSval = parseInt($("#straight").val());
+      var getRval = parseInt($("#rumbled").val());
+      rumbledsum += getRval;
+    straightsum +=  getSval;
+
+    var straightTD = document.getElementById("sum1");
+    var rumbledTD = document.getElementById("sum2");
+    var subtotal = document.getElementById("subtotal");
+    
+    var calcData = document.getElementById("calcData");
+    var total = document.getElementById("total");
+
+    calcData.style.display = "contents";
+    straightTD.innerHTML = straightsum;
+    rumbledTD.innerHTML = rumbledsum;
+    subtotalsum  = rumbledsum + straightsum;
+    subtotal.value = subtotalsum;
+
+    let timer;
+    const input = document.querySelector('#percent');
+    input.addEventListener('keyup', function (e) {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            var res_decimal = convertdecimal();
+            var getpercent = subtotalsum * res_decimal;
+            var grandtotal = subtotalsum - getpercent
+        document.getElementById("total").value = grandtotal;
+
+        }, 1000);
+     });
+
+      return ret;
+    }
+
+    function convertdecimal() {
+        var percent = document.getElementById("percent").value;
+        var result = percent / 100;
+
+        return result;
+
+    }
+
+    // Delete product from <table>
+    function productDelete(ctl,id) {
+        console.log("ctl" + id);
+        var ids = id - 1;
+        console.log("dataRumbled delete: " + dataRumbled[ids]);
+        console.log("dataStraight delete: " + dataStraight[ids]);
+        var straightTD = document.getElementById("sum1");
+        var rumbledTD = document.getElementById("sum2");
+        var getdeduc = parseFloat(dataStraight[ids]) + parseFloat(dataRumbled[ids]);
+        console.log("getdeduc delete: " + getdeduc);
+        let deducstraight_sum = straightsum - parseFloat(dataStraight[ids]);
+        let deducrumbled_sum = rumbledsum - parseFloat(dataRumbled[ids]);
+        straightTD.innerHTML = deducstraight_sum;
+        rumbledTD.innerHTML = deducrumbled_sum;
+        var totaldeduc = subtotalsum - getdeduc;
+        
+        console.log("deduc delete: " + totaldeduc);
+        subtotal.value = totaldeduc;
+      $(ctl).parents("tr").remove();
+    
+      
+    }
+
+    // Clear form fields
+    function formClear() {
+      $("#betNumber").val("");
+      $("#straight").val("");
+      $("#rumbled").val("");
+    }
+
+    var max_chars = 3;
+    $('#betNumber').keyup( function(e){
+    if ($(this).val().length >= max_chars) { 
+        $(this).val($(this).val().substr(0, max_chars));
+    }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+    "name": "lmr/bola_manage",
+    "description": "Bola Manage application",
+    "homepage": "https://bola-manage.bolaswerte.com/",  
+    "authors": [
+        {
+            "name": "sam",
+            "role": "Developer"
+        },
+        {
+            "name": "glennq",
+            "role": "Developer"
+        },
+        {
+            "name": "blueant-allan",
+            "role": "Developer"
+        },
+        {
+            "name": "gap",
+            "role": "Developer"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "illuminate/database": "^8.61",
+        "robmorgan/phinx": "^0.12.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}

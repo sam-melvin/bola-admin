@@ -1,0 +1,4 @@
+[16-Feb-2022 12:26:01 Asia/Manila] PHP Warning:  Undefined array key "file" in /home/u419103131/domains/bolaswerte.com/public_html/bola-manage-1.3.0/tally/upload.php on line 10
+[16-Feb-2022 12:26:01 Asia/Manila] PHP Warning:  Trying to access array offset on value of type null in /home/u419103131/domains/bolaswerte.com/public_html/bola-manage-1.3.0/tally/upload.php on line 10
+[16-Feb-2022 12:26:01 Asia/Manila] PHP Warning:  Undefined array key "fname" in /home/u419103131/domains/bolaswerte.com/public_html/bola-manage-1.3.0/tally/upload.php on line 13
+[16-Feb-2022 12:26:01 Asia/Manila] PHP Warning:  Undefined array key "manager_code" in /home/u419103131/domains/bolaswerte.com/public_html/bola-manage-1.3.0/tally/upload.php on line 15
