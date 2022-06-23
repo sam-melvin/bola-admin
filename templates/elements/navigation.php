@@ -57,6 +57,13 @@ $navTrees = [
         'type' => USER_STAFF
     ],
     [
+        'title' => 'Winning Numbers',
+        'link' => 'winningnumbers.php',
+        'page' => 'winningnumbers',
+        'icon' => 'fa-circle',
+        'type' => USER_STAFF
+    ],
+    [
         'title' => 'Loader Applicants',
         'link' => 'applicants.php',
         'page' => 'applicants',
