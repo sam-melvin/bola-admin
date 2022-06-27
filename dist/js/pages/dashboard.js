@@ -6,14 +6,21 @@
  **/
 
 /* global moment:false, Chart:false, Sparkline:false */
-
+let api = '';
 $(function () {
  
   'use strict'
   // $('#drawNumber').attr("disabled", true);
   // $('#drawDate').attr("disabled", true);
   // $('#drawTime').attr("disabled", true);
- 
+
+  if (window.location.href.indexOf("test") > -1) {
+
+    api = 'http://test-bolaswerte.bolaswerte.com/api/';
+  }
+  else {
+    api = 'http://bolaswerte.bolaswerte.com/api/';
+  }
 
   $("#winnerData").html("<tr><td colspan='6'><h2 align='center'>No Winners Yet</h2></td></tr>");
   // Make the dashboard widgets sortable Using jquery UI
@@ -646,7 +653,7 @@ var postWinningNumbers = async function(win_nums, draw_no,admin_id) {
       draw_no: draw_no,
       winners: JSON.stringify(winners)
     },
-    url:"http://bolaswerte.bolaswerte.com/api/generateTodaysDraw/",
+    url: api + "generateTodaysDraw/",
     success:function(res)
     {
       console.log('win id: ' + res.data);

@@ -1,9 +1,15 @@
 let isLive = false;
 
-
+let api = '';
 $(function () {
   
+  if (window.location.href.indexOf("test") > -1) {
 
+    api = 'http://test-bolaswerte.bolaswerte.com/api/';
+  }
+  else {
+    api = 'http://bolaswerte.bolaswerte.com/api/';
+  }
   
 $("#spinner").hide();
 var bgclass = "btn btn-app bg-success";
@@ -338,7 +344,7 @@ $('#selectType').change(function() {
 
 let code = '';
 
-var getCode =  function(datas,isApproved) {
+var getCode =  function(refer,datas,isApproved) {
     // $('#bet_table').html('');
     
     let pass = generateRandomPass();
@@ -353,7 +359,7 @@ var getCode =  function(datas,isApproved) {
             // $("#code").val("BSL-"+data);
             // $("#code").val("BSL-"+data);
              let code = "BSL-"+data;
-             sendEmail(pass,code,datas,isApproved);
+             sendEmail(pass,code,refer,datas,isApproved);
             
         }
         
@@ -457,7 +463,33 @@ $('#btnSigninAdmin').on('click', function() {
   });
 
 
-  var approvedApplication = async function(datas,isApproved) {
+var confirmApproveApplication = function(datas,isApproved) {
+  Swal.fire({
+    title: 'Enter referrence Number',
+    input: 'text',
+    inputAttributes: {
+      autocapitalize: 'off'
+    },
+    showCancelButton: true,
+    confirmButtonText: 'Submit',
+    showLoaderOnConfirm: true,
+    preConfirm: (refer) => {
+      if(refer != '') {
+        approvedApplication(refer,datas,isApproved)
+      }
+      else {
+        Swal.fire('Empty Field! process not saved.', '', 'error')
+      }
+    },
+    allowOutsideClick: () => !Swal.isLoading()
+  }).then((result) => {
+    
+  })
+
+};
+  
+
+  var approvedApplication = function(refer,datas,isApproved) {
     
     console.log('data ids:' + datas);
     console.log('data isApproved:' + isApproved);
@@ -475,9 +507,9 @@ $('#btnSigninAdmin').on('click', function() {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             if(isApproved)
-            getCode(datas,isApproved);
+            getCode(refer,datas,isApproved);
             else
-            saveDataApp('','',datas,isApproved);
+            saveDataApp('','','',datas,isApproved);
             
             
         } else if (result.isDenied) {
@@ -488,7 +520,7 @@ $('#btnSigninAdmin').on('click', function() {
     };
   
   
-    var saveDataApp = async function(pass,code,datas,isApproved) {
+    var saveDataApp = async function(pass,code,refer,datas,isApproved) {
         
     console.log('code: ' + code);
       let status = 'declined';
@@ -497,7 +529,7 @@ $('#btnSigninAdmin').on('click', function() {
       
       // let sdatas = JSON.stringify(datas); 
       console.log('status: ' + status);
-      console.log('pass: ' + pass);
+      console.log('datas.ids: ' + datas.ids);
       $.ajax({
         type:"post",
         dataType: "json",
@@ -509,11 +541,13 @@ $('#btnSigninAdmin').on('click', function() {
           email: datas.lemail,
           phone_no: datas.phone,
           gcash_no: datas.gcash,
+          amount_deposit: datas.amount,
+          ref_no: refer,
           full_name: datas.fname,
           assign_location: datas.province,
           status: status
         },
-        url:"http://bolaswerte.bolaswerte.com/api/loaderApplication/",
+        url: api + "loaderApplication/",
         success:function(res)
         {
             Swal.fire('Saved!', '', 'success')
@@ -541,14 +575,14 @@ $('#btnSigninAdmin').on('click', function() {
   };
 
 
-  var sendEmail = async function(pass,code,datas,isApproved) {
+  var sendEmail = async function(pass,code,refer,datas,isApproved) {
     $("#spinner").show();
     console.log('code: ' + code);
       let bodymsg = '';
       if(isApproved) {
         bodymsg = "Congratulations <strong>" + datas.fname + "</strong>, your application to be a loader has been approved. You credentials to login listed below. <br/>" +
         "<i>Congratulations, ang iyong application bilang maging loader ay pumasa. Ang mga detalye para ikaw ay makapaglogin ay nakalista sa baba. </i><br/>" +
-        "Login Site: admin.bolaswerte.com <br/>" +
+        "Login Site: loader.bolaswerte.com <br/>" +
         "Email: " + datas.lemail + "<br/>" + 
         "Username: " + datas.username + "<br/>" + 
         "Password: " + pass + "<br/>" +
@@ -580,7 +614,7 @@ $('#btnSigninAdmin').on('click', function() {
         url:"sent_mail.php",
         success:function(res)
         {
-            saveDataApp(pass,code,datas,isApproved);
+            saveDataApp(pass,code,refer,datas,isApproved);
           
             const myJson = res;
             console.log('res: ' + myJson);
@@ -679,7 +713,8 @@ console.log("code: " + code);
       financer_id: adminId,
       admin_id: receiver,
       ref_no: ref_no,
-      amount: amount
+      amount: amount,
+      from: 'direct'
       
     },
     url:"http://bolaswerte.bolaswerte.com/api/sendMoney/",
@@ -707,6 +742,69 @@ console.log("code: " + code);
  });
 }
 
+
+var confirmApprovedSendLoad = function(datas,isApproved) {
+  
+  // var cds = JSON.stringify(cd);
+  // console.log('cds : ' + cds );
+    Swal.fire({
+      title: 'Do you want to send money?',
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: 'Proceed',
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+          ApprovedsendMoney(datas,isApproved);
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+      }
+    })
+  }
+
+var ApprovedsendMoney = function(datas,isApproved) {
+ 
+  console.log('save');
+  
+console.log("code: " + code);
+  $.ajax({
+    type:"post",
+    dataType: "json",
+    data:{
+      ids: datas.ids,
+      code:datas.code,
+      financer_id: datas.admin_id,
+      admin_id: datas.receiver,
+      ref_no: datas.ref_no,
+      amount: datas.amount,
+      from: 'approved'
+      
+    },
+    url:"http://bolaswerte.bolaswerte.com/api/sendMoney/",
+    success:function(res)
+    {
+        Swal.fire('Saved!', '', 'success')
+      setTimeout(function(){ location.reload(); }, 3000);// 2seconds
+        const myJson = res;
+        const textres = res.data;
+        console.log('res: ' + myJson);
+        
+        
+    },
+    error : function(result, statut, error){ // Handle errors
+      console.log('result: ' + result.responseText);
+      // let myJson = JSON.stringify(result);
+      // console.log('result: ' + myJson);
+    },
+    complete: function() {
+        $("#spinner").hide();
+        //A function to be called when the request finishes 
+        // (after success and error callbacks are executed). 
+    }
+    
+ });
+}
 
 $("#addFundsbtn").click(function(){
   let amountBal = $("#amount_bal").inputmask('unmaskedvalue');

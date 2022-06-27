@@ -15,6 +15,27 @@ $navTrees = [
         'type' => USER_LOADER
     ],
     [
+        'title' => 'Banker',
+        'link' => 'banker.php',
+        'page' => 'banker',
+        'icon' => 'fa-circle',
+        'type' => USER_FINANCE
+    ],
+    [
+        'title' => 'Pending Loader',
+        'link' => 'applicants-finance.php',
+        'page' => 'applicants-finance',
+        'icon' => 'fa-circle',
+        'type' => USER_FINANCE
+    ],
+    [
+        'title' => 'Approved Loader',
+        'link' => 'app-applicants-fin.php',
+        'page' => 'app-applicants-fin',
+        'icon' => 'fa-circle',
+        'type' => USER_FINANCE
+    ],
+    [
         'title' => 'Withdraw',
         'link' => 'withdraw.php',
         'page' => 'withdraw',
@@ -69,13 +90,6 @@ $navTrees = [
         'page' => 'applicants',
         'icon' => 'fa-circle',
         'type' => USER_BPO
-    ],
-    [
-        'title' => 'Banker',
-        'link' => 'banker.php',
-        'page' => 'banker',
-        'icon' => 'fa-circle',
-        'type' => USER_FINANCE
     ],
     [
         'title' => 'Monitoring',

@@ -8,8 +8,8 @@ use App\Models\UsersAccess;
 require 'bootstrap.php';
 checkSessionRedirect(SESSION_UID, PAGE_LOCATION_LOGIN);
 $loggedUser = User::find($_SESSION[SESSION_UID]);
-$page = 'applicants';
-$pagetype = 6;
+$page = 'applicants-finance';
+$pagetype = 5;
 checkCurUserIsAllow($pagetype,$_SESSION[SESSION_TYPE]);
 
 $userAccess = UsersAccess::create([
@@ -194,7 +194,7 @@ $results = Applicants::where('status', $status)
                           <th>Username</th>
                           <th>Email</th>
                           <th>Date Submitted</th>
-                          <th></th>
+                          <!-- <th></th> -->
                          
                           
                         </tr>
@@ -236,7 +236,7 @@ $results = Applicants::where('status', $status)
                                             <td><?= $the['lemail'] ?></td>
                                             <td><?= date_format($datec,'F j, Y, g:i a') ?></td>
 
-                                            <td>
+                                            <!-- <td>
                                                 <div class='btn-group'>
                                                 <button type='button' class='btn btn-info'>Action</button>
                                                 <button type='button' class='btn btn-info dropdown-toggle dropdown-icon' data-toggle='dropdown'>
@@ -244,14 +244,13 @@ $results = Applicants::where('status', $status)
                                                 </button>
                                                 <div class='dropdown-menu' role='menu'>
                                                  <?php 
-                                                 $temp = '0';
-                                                 echo "<a class='dropdown-item' href='#' class='text-success' onclick='confirmApproveApplication($Applidatas,true)'>Approve</a>
-                                                  <a class='dropdown-item' href='#' class='text-danger' onclick='approvedApplication($temp,$Applidatas,false)'>Decline</a>";
+                                                //  echo "<a class='dropdown-item' href='#' class='text-success' onclick='approvedApplication($Applidatas,true)'>Approve</a>
+                                                //   <a class='dropdown-item' href='#' class='text-danger' onclick='approvedApplication($Applidatas,false)'>Decline</a>";
                                                   ?>
                                                 </div>
                                               </div>
                                                 
-                                                </td>
+                                                </td> -->
                                             
                                             </tr>
 

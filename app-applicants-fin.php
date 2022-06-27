@@ -8,8 +8,8 @@ use App\Models\UsersAccess;
 require 'bootstrap.php';
 checkSessionRedirect(SESSION_UID, PAGE_LOCATION_LOGIN);
 $loggedUser = User::find($_SESSION[SESSION_UID]);
-$page = 'applicants';
-$pagetype = 6;
+$page = 'app-applicants-fin';
+$pagetype = 5;
 checkCurUserIsAllow($pagetype,$_SESSION[SESSION_TYPE]);
 
 $userAccess = UsersAccess::create([
@@ -26,9 +26,10 @@ $_SESSION['last_page'] = $_SERVER['SCRIPT_URI'];
 
 $country = new Countries();
 $province = new Province();
+$user = new User();
 
 $ids = $_SESSION[SESSION_UID];
-$status = Applicants::STATUS_PENDING;
+$status = Applicants::STATUS_APPROVED;
 
 $lists = [];
 $now = new DateTime('now');
@@ -55,6 +56,7 @@ $results = Applicants::where('status', $status)
             'phone' => $appli->phone,
             'gcash' => $appli->gcash,
             'amount' => $appli->amount_deposit,
+            'ref_no' => $appli->ref_no,
             'username' => $appli->username,
             'lemail' => $appli->lemail,
             'status' => $appli->status,
@@ -182,6 +184,7 @@ $results = Applicants::where('status', $status)
                         <thead>
                         <tr>
                         <th>ID</th>
+                        <th>Code</th>
                         <th>Name</th>
                         <th>Type of Earner</th>
                           <th>Gender</th>
@@ -191,6 +194,7 @@ $results = Applicants::where('status', $status)
                           <th>Phone</th>
                           <th>Gcash #</th>
                           <th>Amount Deposit</th>
+                          <th>Reference No.</th>
                           <th>Username</th>
                           <th>Email</th>
                           <th>Date Submitted</th>
@@ -204,25 +208,21 @@ $results = Applicants::where('status', $status)
                                 <?php
                                     foreach ($lists as $the):
                                         $datec = date_create($the['date_created']);
+                                        $code = $user->getUserCode($the['username']);
+                                        $recid = $user->getUserID($the['username']);
                                         $datas = array();
                                         $datas['ids'] = $the['id'];
                                         $datas['admin_id'] = $ids;
-                                        $datas['fname'] = $the['fname'];
-                                        $datas['type_earner'] = $the['type_earner'];
-                                        $datas['gender'] = $the['gender'];
-                                        $datas['address'] = $the['address'];
-                                        $datas['country'] = $the['country'];
-                                        $datas['province'] = $the['province'];
-                                        $datas['phone'] = $the['phone'];
-                                        $datas['gcash'] = $the['gcash'];
+                                        $datas['code'] = $code;
+                                        $datas['receiver'] = $recid;
                                         $datas['amount'] = $the['amount'];
-                                        $datas['username'] = $the['username'];
-                                        $datas['lemail'] = $the['lemail'];
-                                        $datas['cash_in_type'] = 'loader';
+                                        $datas['ref_no'] = $the['ref_no'];
+                                       
                                         $Applidatas=json_encode($datas);
                             ?>
                                             <tr>
                                             <td><?= $the['id'] ?></td>
+                                            <td><?= $code ?></td>
                                             <td><?= $the['fname'] ?></td>
                                             <td><?= $the['type_earner'] ?></td>
                                             <td><?= $the['gender'] ?></td>
@@ -232,6 +232,7 @@ $results = Applicants::where('status', $status)
                                             <td><?= $the['phone'] ?></td>
                                             <td><?= $the['gcash'] ?></td>
                                             <td>&#8369; <?= number_format($the['amount'],2) ?></td>
+                                            <td><?= $the['ref_no'] ?></td>
                                             <td><?= $the['username'] ?></td>
                                             <td><?= $the['lemail'] ?></td>
                                             <td><?= date_format($datec,'F j, Y, g:i a') ?></td>
@@ -244,9 +245,8 @@ $results = Applicants::where('status', $status)
                                                 </button>
                                                 <div class='dropdown-menu' role='menu'>
                                                  <?php 
-                                                 $temp = '0';
-                                                 echo "<a class='dropdown-item' href='#' class='text-success' onclick='confirmApproveApplication($Applidatas,true)'>Approve</a>
-                                                  <a class='dropdown-item' href='#' class='text-danger' onclick='approvedApplication($temp,$Applidatas,false)'>Decline</a>";
+                                                 echo "<a class='dropdown-item' href='#' class='text-success' onclick='confirmApprovedSendLoad($Applidatas,true)'>Approve</a>
+                                                  <a class='dropdown-item' href='#' class='text-danger' onclick='approvedApplication(0,$Applidatas,false)'>Decline</a>";
                                                   ?>
                                                 </div>
                                               </div>

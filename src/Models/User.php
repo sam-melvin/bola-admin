@@ -65,6 +65,29 @@ class User extends Model
         return empty($result) ? '' : $result->full_name;
     }
 
+    public function getUserCode($username)
+    {
+        /**
+         * get latest balance information
+         */
+        $result = $this->where('username', $username)
+            ->orderByDesc('id')
+            ->first();
+        
+        return empty($result) ? '' : $result->code;
+    }
+
+    public function getUserID($username)
+    {
+        /**
+         * get latest balance information
+         */
+        $result = $this->where('username', $username)
+            ->orderByDesc('id')
+            ->first();
+        
+        return empty($result) ? '' : $result->id;
+    }
 
     public function jsonEncodeSuccess($data){
         $array = array(
