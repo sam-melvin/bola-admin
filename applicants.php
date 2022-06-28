@@ -56,6 +56,7 @@ $results = Applicants::where('status', $status)
             'gcash' => $appli->gcash,
             'amount' => $appli->amount_deposit,
             'username' => $appli->username,
+            'invitor_id' => $appli->invitor_id,
             'lemail' => $appli->lemail,
             'status' => $appli->status,
             'date_created' => $appli->date_created
@@ -192,6 +193,7 @@ $results = Applicants::where('status', $status)
                           <th>Gcash #</th>
                           <th>Amount Deposit</th>
                           <th>Username</th>
+                          <th>Invitor ID</th>
                           <th>Email</th>
                           <th>Date Submitted</th>
                           <th></th>
@@ -217,6 +219,7 @@ $results = Applicants::where('status', $status)
                                         $datas['gcash'] = $the['gcash'];
                                         $datas['amount'] = $the['amount'];
                                         $datas['username'] = $the['username'];
+                                        $datas['invitor_id'] = $the['invitor_id'];
                                         $datas['lemail'] = $the['lemail'];
                                         $datas['cash_in_type'] = 'loader';
                                         $Applidatas=json_encode($datas);
@@ -233,6 +236,7 @@ $results = Applicants::where('status', $status)
                                             <td><?= $the['gcash'] ?></td>
                                             <td>&#8369; <?= number_format($the['amount'],2) ?></td>
                                             <td><?= $the['username'] ?></td>
+                                            <td><?= $the['invitor_id'] ?></td>
                                             <td><?= $the['lemail'] ?></td>
                                             <td><?= date_format($datec,'F j, Y, g:i a') ?></td>
 

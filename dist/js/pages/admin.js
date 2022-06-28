@@ -534,19 +534,38 @@ var confirmApproveApplication = function(datas,isApproved) {
         type:"post",
         dataType: "json",
         data:{
-          ids: datas.ids,
-          code: code,
-          password: pass,
-          username: datas.username,
-          email: datas.lemail,
-          phone_no: datas.phone,
-          gcash_no: datas.gcash,
-          amount_deposit: datas.amount,
-          ref_no: refer,
-          full_name: datas.fname,
-          assign_location: datas.province,
-          status: status
-        },
+            ids: datas.ids,
+            invitation_code: code,
+            password: pass,
+            username: datas.username,
+            invitor_id: datas.invitor_id,
+            email: datas.lemail,
+            phone_number: datas.phone,
+            gcash_number: datas.gcash,
+            currency: 'PHP',
+            amount_deposit: datas.amount,
+            ref_no: refer,
+            first_name: datas.fname,
+            address: datas.address,
+            country_id: datas.country,
+            province_id: datas.province,
+            status: status
+          },
+        // data:{
+        //   ids: datas.ids,
+        //   code: code,
+        //   password: pass,
+        //   username: datas.username,
+        //   invitor_id: datas.invitor_id,
+        //   email: datas.lemail,
+        //   phone_no: datas.phone,
+        //   gcash_no: datas.gcash,
+        //   amount_deposit: datas.amount,
+        //   ref_no: refer,
+        //   full_name: datas.fname,
+        //   assign_location: datas.province,
+        //   status: status
+        // },
         url: api + "loaderApplication/",
         success:function(res)
         {
@@ -560,6 +579,7 @@ var confirmApproveApplication = function(datas,isApproved) {
         },
         error : function(result, statut, error){ // Handle errors
           console.log('result: ' + result.responseText);
+          Swal.fire('Error Occur! Contact your IT Administrator.', 'Application not process.', 'error')
           // let myJson = JSON.stringify(result);
           // console.log('result: ' + myJson);
         },
@@ -582,7 +602,7 @@ var confirmApproveApplication = function(datas,isApproved) {
       if(isApproved) {
         bodymsg = "Congratulations <strong>" + datas.fname + "</strong>, your application to be a loader has been approved. You credentials to login listed below. <br/>" +
         "<i>Congratulations, ang iyong application bilang maging loader ay pumasa. Ang mga detalye para ikaw ay makapaglogin ay nakalista sa baba. </i><br/>" +
-        "Login Site: loader.bolaswerte.com <br/>" +
+        // "Login Site: loader.bolaswerte.com <br/>" +
         "Email: " + datas.lemail + "<br/>" + 
         "Username: " + datas.username + "<br/>" + 
         "Password: " + pass + "<br/>" +
@@ -622,6 +642,10 @@ var confirmApproveApplication = function(datas,isApproved) {
         },
         error : function(result, statut, error){ // Handle errors
           console.log('result: ' + result.responseText);
+          $("#spinner").hide();
+          Swal.fire('Error Occur! Contact your IT Administrator.', result.responseText, 'error')
+
+          
           // let myJson = JSON.stringify(result);
           // console.log('result: ' + myJson);
         }
