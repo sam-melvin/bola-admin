@@ -31,13 +31,13 @@ try {
     $mail->isSMTP();                                      // Set mailer to use SMTP
     $mail->Host = 'smtp.hostinger.com ';                  // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                               // Enable SMTP authentication
-    $mail->Username = 'admin@bolaswerte.com';             // SMTP username
+    $mail->Username = 'adminbola@bolaswerte.com';             // SMTP username
     $mail->Password = 's@mfreAk21';                           // SMTP password
     $mail->SMTPSecure = 'ssl';                            // Enable SSL encryption, TLS also accepted with port 465
     $mail->Port = 465;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('admin@bolaswerte.com', 'Bola Swerte Admin');          //This is the email your form sends From
+    $mail->setFrom('adminbola@bolaswerte.com', 'Bola Swerte Admin');          //This is the email your form sends From
     $mail->addAddress($recipient, $fname); // Add a recipient address
     // $mail->addAddress('melvincayanan7@gmail.com', 'sam test'); 
     //$mail->addAddress('contact@example.com');               // Name is optional

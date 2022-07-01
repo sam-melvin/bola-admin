@@ -486,7 +486,7 @@ $banker = [
     messages: {
     amount: "Please enter a amount",
     selReceiver: "Please Select a receiver",
-    selReceiver: "Please enter the referrence no."
+    ref_no: "Please enter the referrence no."
     
     },
     errorElement: 'span',

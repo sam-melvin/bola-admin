@@ -663,6 +663,11 @@ var postWinningNumbers = async function(win_nums, draw_no,admin_id) {
     },
     error : function(result, statut, error){ // Handle errors
       console.log('result: ' + result.responseText);
+      Swal.fire(
+        'Error Occured',
+        'Please contact your IT administrator.',
+        'error'
+      )
       // let myJson = JSON.stringify(result);
       // console.log('result: ' + myJson);
     }
@@ -842,7 +847,7 @@ var saveTally =  async function(tally) {
           investor: tally.investor,
           total_earnings: tally.total_earnings
         },
-        url: 'http://bolaswerte.bolaswerte.com/api/generateTallyReport',
+        url: api + 'generateTallyReport',
         success : function(res){
           Swal.fire(
             'Winning Numbers Posted',
