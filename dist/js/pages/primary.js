@@ -93,7 +93,7 @@ var getStatistics =  function(total_bets,draw_id,percent) {
               let stats = [];
               
               Object.entries(jsonres).forEach(([key, value]) => {
-                // let jnobets = JSON.stringify(value.nobets);
+                let jnobets = JSON.stringify(value.nobets);
                 // console.log("no bets: " + jnobets);
                 // console.log("total residual earn: " + value.total_residual_earning);
                 // let percent = getTotalAmountBets(value.total_amount);
@@ -107,11 +107,11 @@ var getStatistics =  function(total_bets,draw_id,percent) {
                 let deduc = loader + investor + parseFloat(total_person_earning) + parseFloat(total_residual_earning);
                 total_earnings = parseFloat(total_bets) - deduc;
                 total_profit = parseFloat(total_earnings) - parseFloat(total_payouts);
-                // console.log("total_earnings: " + total_earnings);
-                // console.log("total_ramble_bet: " + value.total_ramble_bet);
-                console.log("percentSet: " + percent);
+                console.log("total_earnings: " + total_earnings);
+                console.log("total_straightWin: " + value.total_amount);
+                // console.log("percentSet: " + percent);
                 let perc = ((parseFloat(total_payouts)/parseFloat(total_earnings)) * 100);
-               
+                console.log("no bets: " + jnobets);
                 localStorage.setItem("total_straightWin"+key, value.total_amount);
                 localStorage.setItem("total_rumbleWin"+key, value.total_ramble_bet);
                 localStorage.setItem("total_TwoDWin"+key, value.total_twoD_bet);

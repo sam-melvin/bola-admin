@@ -242,7 +242,7 @@ var registerAdmin = async function(uname,apass,fname,aemail,phone_no,gcash_no,se
                 'success'
               )
 
-            //   setTimeout(function(){ location.replace('admin_users.php'); }, 3000);// 2seconds
+              setTimeout(function(){ location.replace('admin_users.php'); }, 3000);// 2seconds
         },
         error : function(result, statut, error){ // Handle errors
             console.log('result: ' + result.responseText);
