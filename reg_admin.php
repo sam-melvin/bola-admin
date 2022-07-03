@@ -205,7 +205,7 @@ $ids = $_SESSION[SESSION_UID];
 
                 <div class="card-footer">
                 <input type="hidden" id="seq_num" name="seq_num">
-                  <button type="button" class="btn btn-primary" id="reguserAdminbtn" id="reguserAdminbtn">Submit</button>
+                  <button type="button" class="btn btn-primary" id="reguserAdminbtn">Submit</button>
                 </div>
               </form>
             </div>

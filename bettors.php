@@ -165,6 +165,7 @@ $bettorUsers = $bolauser->getBettorUsers();
                           <th>Phone No.</th>
                           <th>Address</th>
                           <th>Location</th>
+                          <th>User type</th>
                           <th>Status</th>
                           <th>Date Registered</th>
                         </tr>
@@ -184,6 +185,7 @@ $bettorUsers = $bolauser->getBettorUsers();
                                 <td><?php echo $wn['phone_number'] ?></td>
                                 <td><?php echo $wn['address'] ?></td>
                                 <td><?= $province->getProvince($wn['province_id']) ?></td>
+                                <td><?= $wn['type'] == '3' ? 'Loader' : 'Member' ?></td>
                                 <td>
                                   <?php echo $wn['user_status'] == '1' ? "<span class='badge badge-warning'>Online" :"<span class='badge badge-danger'>Offline"; ?>
                                   </span>
