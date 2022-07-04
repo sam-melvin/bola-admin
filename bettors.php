@@ -3,6 +3,7 @@ use App\Models\User;
 use App\Models\BolaUsers;
 use App\Models\Province;
 use App\Models\UsersAccess;
+use App\Models\UserCash;
 
 require 'bootstrap.php';
 require 'ses_limit.php';
@@ -27,7 +28,7 @@ $_SESSION['last_page'] = $_SERVER['SCRIPT_URI'];
 $ids = $_SESSION[SESSION_UID];
 $bolauser = new BolaUsers();
 $province = new Province();
-
+$usercash = new UserCash();
 
 
 $bettorUsers = $bolauser->getBettorUsers();
@@ -161,6 +162,7 @@ $bettorUsers = $bolauser->getBettorUsers();
                         <th>ID</th>
                         <th>Username</th>
                         <th>Name</th>
+                        <th>Load Balance</th>
                           <th>Email</th>
                           <th>Phone No.</th>
                           <th>Address</th>
@@ -181,6 +183,7 @@ $bettorUsers = $bolauser->getBettorUsers();
                                 <td><?php echo $wn['id'] ?></td>
                                 <td><?php echo $wn['username'] ?></td>
                                 <td><?php echo $fname ?></td>
+                                <td>&#8369; <?php echo number_format($usercash->getBalanceById($wn['id']),2) ?></td>
                                 <td><?php echo $wn['email'] ?></td>
                                 <td><?php echo $wn['phone_number'] ?></td>
                                 <td><?php echo $wn['address'] ?></td>
