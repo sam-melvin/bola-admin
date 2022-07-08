@@ -3,7 +3,7 @@ session_start();
 include 'dbConfig.php';
 $ids = $_POST['ids'];
 
-$sql = "DELETE FROM `bola_users` WHERE id=$ids";
+$sql = "DELETE FROM `users` WHERE id=$ids";
 
     if ($conn->query($sql) === TRUE) {
     echo "success";

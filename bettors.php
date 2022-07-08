@@ -170,6 +170,7 @@ $bettorUsers = $bolauser->getBettorUsers();
                           <th>User type</th>
                           <th>Status</th>
                           <th>Date Registered</th>
+                          <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -194,6 +195,18 @@ $bettorUsers = $bolauser->getBettorUsers();
                                   </span>
                                 </td>
                                 <td><?= date_format($datec,'F j, Y, g:i a') ?></td>
+                                <td>
+                                                        <div class="btn-group"'>
+                                                            <button type="button" class="btn btn-info">Action</button>
+                                                            <button type="button" class="btn btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                                <span class="sr-only">Toggle Dropdown</span>
+                                                            </button>
+                                                            <div class="dropdown-menu" role="menu">
+                                                                <!-- <a  class="dropdown-item" data-toggle="modal" data-target="#modal-primary" id="editBtn" onclick="openRegForm(<?=$user->id?>)">Edit</a> -->
+                                                                <a class="dropdown-item" onclick="deleteUser(<?=$wn['id']?>)">Delete</a>
+                                                            </div>
+                                                          </div>
+                                                    </td>
                                
                             </tr>
                             <?php 

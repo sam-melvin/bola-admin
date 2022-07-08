@@ -875,3 +875,33 @@ var saveTally =  async function(tally) {
   
  
 };
+
+var deleteUser = async function(ids) {
+  Swal.fire({
+      title: 'Do you want to Delete this User?',
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `Don't save`,
+  }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+          $.ajax({
+              type:'post',
+              url: 'del_user.php',
+              data : {ids: ids},
+              success : function(data) {
+                  // console.log('data request:' + data);
+                  if (data == 'success') {
+                      Swal.fire('Deleted!', '', 'success')
+                      setTimeout(function(){ location.reload(); }, 2000);// 2seconds
+                  } else {
+                      Swal.fire('Error Occured Contact IT Administrator', '', 'danger');
+                  }
+              }
+          });
+      } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+      }
+  });
+};

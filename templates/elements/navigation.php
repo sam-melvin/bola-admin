@@ -103,7 +103,7 @@ $navTrees = [
         'link' => 'primary.php',
         'page' => 'statistics',
         'icon' => 'fa-circle',
-        'type' => USER_SUPERADMIN
+        'type' => USER_ADMIN
     ],
     [
         'title' => 'User Access Logs',

@@ -14,7 +14,7 @@ checkSessionRedirect(SESSION_UID, PAGE_LOCATION_LOGIN);
 
 $loggedUser = User::find($_SESSION[SESSION_UID]);
 $page = 'statistics';
-$pagetype = 7;
+$pagetype = 1;
 checkCurUserIsAllow($pagetype,$_SESSION[SESSION_TYPE]);
 
 $userAccess = UsersAccess::create([
