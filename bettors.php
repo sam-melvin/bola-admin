@@ -220,8 +220,7 @@ $bettotalBal = $usercash->getBalance();
                           <th>Phone No.</th>
                           <th>Address</th>
                           <th>Location</th>
-                          <th>User type</th>
-                          <th>Status</th>
+                          
                           <th>Date Registered</th>
                           <th>Action</th>
                         </tr>
