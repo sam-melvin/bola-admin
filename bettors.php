@@ -214,6 +214,8 @@ $bettotalBal = $usercash->getBalance();
                         <th>Name</th>
                         <th>Invitor</th>
                         <th>Load Balance</th>
+                        <th>User type</th>
+                          <th>Status</th>
                           <th>Email</th>
                           <th>Phone No.</th>
                           <th>Address</th>
@@ -238,6 +240,11 @@ $bettotalBal = $usercash->getBalance();
                                 <td><?php echo $fname ?></td>
                                 <td><?php echo $wn['invitor_id'] ?></td>
                                 <td>&#8369; <?php echo number_format($usercash->getBalanceById($wn['id']),2) ?></td>
+                                <td><?= $wn['type'] == '3' ? 'Loader' : 'Member' ?></td>
+                                <td>
+                                  <?php echo $wn['user_status'] == '1' ? "<span class='badge badge-warning'>Online" :"<span class='badge badge-danger'>Offline"; ?>
+                                  </span>
+                                </td>
                                 <td><?php echo $wn['email'] ?></td>
                                 <td><?php echo $wn['phone_number'] ?></td>
                                 <td><?php echo $wn['address'] ?></td>
