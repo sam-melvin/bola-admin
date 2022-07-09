@@ -249,11 +249,6 @@ $bettotalBal = $usercash->getBalance();
                                 <td><?php echo $wn['phone_number'] ?></td>
                                 <td><?php echo $wn['address'] ?></td>
                                 <td><?= $province->getProvince($wn['province_id']) ?></td>
-                                <td><?= $wn['type'] == '3' ? 'Loader' : 'Member' ?></td>
-                                <td>
-                                  <?php echo $wn['user_status'] == '1' ? "<span class='badge badge-warning'>Online" :"<span class='badge badge-danger'>Offline"; ?>
-                                  </span>
-                                </td>
                                 <td><?= date_format($datec,'F j, Y, g:i a') ?></td>
                                 <td>
                                                         <div class="btn-group"'>
