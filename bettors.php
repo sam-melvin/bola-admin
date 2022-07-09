@@ -32,7 +32,9 @@ $usercash = new UserCash();
 
 
 $bettorUsers = $bolauser->getBettorUsers();
-
+$bettorMember = $bolauser->getBettorUsersByType(0);
+$bettorLoader = $bolauser->getBettorUsersByType(3);
+$bettotalBal = $usercash->getBalance();
 ?>
 
 <!DOCTYPE html>
@@ -131,12 +133,59 @@ $bettorUsers = $bolauser->getBettorUsers();
         <div class="col">
             <div class="small-box bg-warning">
                 <div class="inner">
-                <p>Registered Bettors </p>
+                <p>Total Registered Users </p>
                     <h3><?= count($bettorUsers) ?></h3>
                     
                 </div>
                 <div class="icon">
                     <i class="ion ion-person-add"></i>
+                </div>
+                <!-- <a href="view-reguser.php" class="small-box-footer">
+                    View list <i class="fas fa-arrow-circle-right"></i>
+                </a> -->
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="small-box bg-danger">
+                <div class="inner">
+                <p>Bettors </p>
+                    <h3><?= count($bettorMember) ?></h3>
+                    
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <!-- <a href="view-reguser.php" class="small-box-footer">
+                    View list <i class="fas fa-arrow-circle-right"></i>
+                </a> -->
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="small-box bg-primary">
+                <div class="inner">
+                <p>Loader </p>
+                    <h3><?= count($bettorLoader) ?></h3>
+                    
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <!-- <a href="view-reguser.php" class="small-box-footer">
+                    View list <i class="fas fa-arrow-circle-right"></i>
+                </a> -->
+            </div>
+        </div>
+        <div class="col">
+            <div class="small-box bg-success">
+                <div class="inner">
+                <p>Total Load</p>
+                    <h3><?= number_format($bettotalBal,2) ?></h3>
+                    
+                </div>
+                <div class="icon">
+                    <i class="fas fa-coins"></i>
                 </div>
                 <!-- <a href="view-reguser.php" class="small-box-footer">
                     View list <i class="fas fa-arrow-circle-right"></i>
@@ -161,7 +210,9 @@ $bettorUsers = $bolauser->getBettorUsers();
                         <tr>
                         <th>ID</th>
                         <th>Username</th>
+                        <th>Code</th>
                         <th>Name</th>
+                        <th>Invitor</th>
                         <th>Load Balance</th>
                           <th>Email</th>
                           <th>Phone No.</th>
@@ -183,7 +234,9 @@ $bettorUsers = $bolauser->getBettorUsers();
                                 
                                 <td><?php echo $wn['id'] ?></td>
                                 <td><?php echo $wn['username'] ?></td>
+                                <td><?php echo $wn['invitation_code'] ?></td>
                                 <td><?php echo $fname ?></td>
+                                <td><?php echo $wn['invitor_id'] ?></td>
                                 <td>&#8369; <?php echo number_format($usercash->getBalanceById($wn['id']),2) ?></td>
                                 <td><?php echo $wn['email'] ?></td>
                                 <td><?php echo $wn['phone_number'] ?></td>

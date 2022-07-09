@@ -24,6 +24,19 @@ class BolaUsers extends Model
         return empty($result) ? 'no data' : $result;
     }
 
+    public function getBettorUsersByType($type)
+    {
+        /**
+         * get latest balance information
+         */
+        $result = $this->where('type', $type)
+            ->orderByDesc('id')
+                    ->get();
+            
+        
+        return empty($result) ? null : $result;
+    }
+
     public function getUserName($id)
     {
         /**
