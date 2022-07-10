@@ -314,6 +314,10 @@ $results = Bets::where('status', $status)
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": true, "autoWidth": true, "sorter": 1, "order": [[0, 'desc']],
+      lengthMenu: [
+            [500, -1],
+            [500, 'All'],
+        ],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     
     
