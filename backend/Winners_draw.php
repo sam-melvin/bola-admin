@@ -40,6 +40,7 @@ class Winners {
                             'category' => $logs['category'],
                             'location' => $logs['location'],
                             'type' => $logs['type'],
+                            'isDemo' => $logs['isDemo'],
                             'digit' => $logs['digit'],
                             'amount' => $logs['amount'],
                             'prize_amount' => $amount_prize
@@ -70,6 +71,7 @@ class Winners {
                             'category' => $logs['category'],
                             'location' => $logs['location'],
                             'type' => $logs['type'],
+                            'isDemo' => $logs['isDemo'],
                             'digit' => $logs['digit'],
                             'amount' => $logs['amount'],
                             'prize_amount' => $amount_prize
@@ -100,6 +102,7 @@ class Winners {
                             'category' => $logs['category'],
                             'location' => $logs['location'],
                             'type' => $logs['type'],
+                            'isDemo' => $logs['isDemo'],
                             'digit' => $logs['digit'],
                             'amount' => $logs['amount'],
                             'prize_amount' => $amount_prize
@@ -132,6 +135,7 @@ class Winners {
                             'category' => $logs['category'],
                             'location' => $logs['location'],
                             'type' => $logs['type'],
+                            'isDemo' => $logs['isDemo'],
                             'digit' => $logs['digit'],
                             'amount' => $logs['amount'],
                             'prize_amount' => $amount_prize
@@ -240,7 +244,7 @@ class Winners {
 
     private function queryWinners($wid)
     {
-        $sql = "SELECT `id`, `user_id`, `draw_id`, `category`, `digit`, `amount`, `location`,`type` FROM `bets` WHERE `draw_id` = '$wid' AND `status`='pending' ";
+        $sql = "SELECT `id`, `user_id`, `draw_id`, `category`, `digit`, `amount`, `location`,`type`,`isDemo` FROM `bets` WHERE `draw_id` = '$wid' AND `status`='pending' ";
 
         
 

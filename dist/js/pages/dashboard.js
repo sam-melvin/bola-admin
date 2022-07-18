@@ -593,13 +593,14 @@ $('#loadWinnersBtn').on('click', function() {
                           tr += "<td> <span class='badge badge-warning'>" + value[prop].category + "<span></td>";
                       else
                         tr += "<td> <span class='badge badge-danger'>" + value[prop].category + "<span></td>";  
-      
+                let typewin = value[prop].isDemo == '1' ? '<span class="badge badge-secondary">Demo</span>' : '<span class="badge badge-success">Live</span>';
                 tr += "<td>" + value[prop].user_id + "</td>" +
                       "<td>" + value[prop].bet_id + "</td>" +
                       "<td>" + value[prop].digit + "</td>" +
                       "<td>" + value[prop].draw_id + "</td>" +
                       "<td>" + value[prop].amount + "</td>" +
-                      "<td>" + value[prop].prize_amount + "</td>";
+                      "<td>" + value[prop].prize_amount + "</td>" + 
+                      "<td>" + typewin + "</td>";
                 
                 tr += "</tr>";
                 total_amount += parseFloat(value[prop].amount);

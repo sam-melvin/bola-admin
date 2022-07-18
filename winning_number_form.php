@@ -252,6 +252,7 @@ $userCash = new UserCash();
                       <th>Draw No.</th>
                       <th>Bet Amount</th>
                       <th>Prize Amount</th>
+                      <th>Type</th>
                     </tr>
                     </thead>
                     <tbody id="winnerData">
