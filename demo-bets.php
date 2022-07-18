@@ -29,7 +29,7 @@ $lists = [];
 $now = new DateTime('now');
 
 $results = Bets::where('status', $status)
-    ->where('isDemo', '0')
+    ->where('isDemo', '1')
     // ->where('date_submit', $now->format('m-d-Y'))
     // ->where('draw_number', WinningNumber::getNextDrawNumber())
     ->orderByDesc('date_created')
@@ -148,14 +148,14 @@ $results = Bets::where('status', $status)
           <div class="col-12">
               <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Current Bets</h3>
+                      <h3 class="card-title">Demo Current Bets</h3>
                       <div class="card-tools">
                             <div class="btn-group">
-                                <a class="btn btn-primary" href="bets-trans.php">
+                                <!-- <a class="btn btn-primary" href="bets-trans.php">
                                     <i class="fas fa-history"></i>&nbsp;Bets Logs
-                                </a>
-                                <a class="btn btn-primary ml-2" href="demo-bets.php">
-                                    <i class="fas fa-coins"></i>&nbsp;Demo Bets
+                                </a> -->
+                                <a class="btn btn-primary ml-2" href="./">
+                                    <i class="fas fa-coins"></i>&nbsp;Live Bets
                                 </a>
                             </div>
                         </div>
