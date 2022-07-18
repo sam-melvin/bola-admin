@@ -162,7 +162,7 @@ $userCash = new UserCash();
     <section class="content">
         <div class="row">
           <!-- left column -->
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-10 mx-auto">
         <!-- general form elements -->
         <h2 id="texttite">Enter 3 Digits Winning Numbers </h2>
         <br />
