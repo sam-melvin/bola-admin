@@ -216,11 +216,11 @@ $bettotalBal = $usercash->getBalance();
                         <th>Load Balance</th>
                         <th>User type</th>
                           <th>Status</th>
-                          <th>Email</th>
+                          <th>Loader Info</th>
                           <th>Phone No.</th>
                           <th>Address</th>
                           <th>Location</th>
-                          
+                          <th>Email</th>
                           <th>Date Registered</th>
                           <th>Action</th>
                         </tr>
@@ -244,10 +244,11 @@ $bettotalBal = $usercash->getBalance();
                                   <?php echo $wn['user_status'] == '1' ? "<span class='badge badge-warning'>Online" :"<span class='badge badge-danger'>Offline"; ?>
                                   </span>
                                 </td>
-                                <td><?php echo $wn['email'] ?></td>
+                                <td><?php echo $wn['loader_code'] ? $wn['loader_code'] :  "Finance" ?></td>
                                 <td><?php echo $wn['phone_number'] ?></td>
                                 <td><?php echo $wn['address'] ?></td>
                                 <td><?= $province->getProvince($wn['province_id']) ?></td>
+                                <td><?php echo $wn['email'] ?></td>
                                 <td><?= date_format($datec,'F j, Y, g:i a') ?></td>
                                 <td>
                                                         <div class="btn-group"'>
